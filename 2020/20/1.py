@@ -11,13 +11,18 @@ for tile in dat:
     broken = tile.strip("\n").split("\n")
     num = int(broken[0].split()[1].strip(":"))
     arr = broken[1:]
+
     sides = [
         arr[0],
         arr[-1],
-        "".join([a[0] for a in arr]),
-        "".join([a[-1] for a in arr]),
+        "",
+        "",
     ]
+    for a in arr:
+        sides[2] += a[0]
+        sides[3] += a[-1]
     sides += [s[::-1] for s in sides]
+
     tiles[num] = dict()
     tiles[num]["arr"] = arr
     tiles[num]["sides"] = sides
@@ -32,6 +37,7 @@ for tile in dat:
             tiles[i]["bordering"][num] = b
 
 toplevelarr = list(map(int, [t for t in tiles if len(tiles[t]["bordering"]) == 2]))
+
 sol = 1
 for c in toplevelarr:
     sol *= c
