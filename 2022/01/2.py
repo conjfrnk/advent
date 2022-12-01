@@ -6,8 +6,8 @@ fn = Path(Path(__file__).parent, fn)
 dat = open(fn).read().strip().split("\n")
 
 elves = []
-
 elf = 0
+
 for line in dat:
     if line == "":
         elves.append(elf)
