@@ -5,21 +5,11 @@ fn = "input.txt"
 fn = Path(Path(__file__).parent, fn)
 dat = open(fn).read().strip().split("\n")
 
-
-def check(s):
-    counts = set()
-    for c in s:
-        if c not in counts:
-            counts.add(c)
-        else:
-            return False
-    return True
-
-
 line = dat[0]
 req = 4
 
 for i in range(req, len(line)):
-    if check(line[i - req : i]):
+    check = line[i - req : i]
+    if len(set(check)) == len(check):
         print(i)
         break
