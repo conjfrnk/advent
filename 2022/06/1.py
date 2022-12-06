@@ -17,7 +17,7 @@ def check(s):
 
 
 line = dat[0]
-req = 14
+req = 4
 
 for i in range(req, len(line)):
     if check(line[i - req : i]):
