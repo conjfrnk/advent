@@ -59,6 +59,7 @@ for a, b in zip(seeds[::2], seeds[1::2]):
                     elif s < rang[0]:
                         sep = rang[0] - s
                         best = min(best, sep)
+
                 if not flag:
                     nvals.append(rang[:best])
                     rang = rang[best:]
