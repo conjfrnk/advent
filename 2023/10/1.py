@@ -1,6 +1,6 @@
 from pathlib import Path
 
-fn = "ex3.txt"
+# fn = "ex3.txt"
 fn = "input.txt"
 fn = Path(Path(__file__).parent, fn)
 dat = open(fn).read().strip().split("\n")
@@ -15,7 +15,8 @@ for i in range(len(dat)):
             start.append((i, j))
             found = True
             break
-    if found: break
+    if found:
+        break
 
 start = i, j
 ends = []
@@ -24,19 +25,19 @@ found = 2
 if dat[i - 1][j] in {"F", "7", "|"}:
     if found > 0:
         ends.append((i - 1, j))
-        found += 1
+        found -= 1
 if dat[i + 1][j] in {"|", "J", "L"}:
     if found > 0:
         ends.append((i + 1, j))
-        found += 1
+        found -= 1
 if dat[i][j - 1] in {"F", "L", "-"}:
     if found > 0:
         ends.append((i, j - 1))
-        found += 1
+        found -= 1
 if dat[i][j + 1] in {"-", "7", "J"}:
     if found > 0:
         ends.append((i, j + 1))
-        found += 1
+        found -= 1
 
 ends = [ends[0]], [ends[1]]
 seen = [start, ends[0][0], ends[1][0]]
