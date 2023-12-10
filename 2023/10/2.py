@@ -1,7 +1,9 @@
 from pathlib import Path
+import matplotlib.pyplot as plt
+import matplotlib.patches as mpatches
 
-fn = "ex5.txt"
-#fn = "input.txt"
+# fn = "ex6.txt"
+fn = "input.txt"
 fn = Path(Path(__file__).parent, fn)
 dat = open(fn).read().strip().split("\n")
 
@@ -87,32 +89,31 @@ while ends[0][-1] != ends[1][-1]:
 
 
 in_loop = 0
-inside = []
+inside = set()
+
+fix, ax = plt.subplots()
+polygon = mpatches.Polygon(start + ends[0] + ends[1][::-1], facecolor="skyblue")
+ax.add_patch(polygon)
 
 for i in range(len(dat)):
-    looped = False
     for j in range(len(dat[i])):
-        if (i, j) in seen:
-            if looped and dat[i][j] in {"|", "J", "7"}:
-                looped = False
-                continue
-            if not looped and dat[i][j] in {"|", "L", "F", "S"}:
-                if dat[i][j - 1] not in {"|", "J", "7"}:
-                    looped = True
-                    continue
-        if looped and dat[i][j] == ".":
-            print((i, j))
-            inside.append((i, j))
-            in_loop += 1
+        if polygon.contains_point(ax.transData.transform((i, j))):
+            inside.add((i, j))
 
 for i in range(len(dat)):
     for j in range(len(dat[i])):
         if (i, j) in seen:
             print(dat[i][j], end="")
         elif (i, j) in inside:
+            ax.scatter(i, j)
+            in_loop += 1
             print("I", end="")
         else:
             print(".", end="")
     print()
 
 print(in_loop)
+
+ax.set_xlim(0, len(dat) - 1)
+ax.set_ylim(0, len(dat[0]) - 1)
+plt.show()
